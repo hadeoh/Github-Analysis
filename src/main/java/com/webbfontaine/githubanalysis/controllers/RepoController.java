@@ -1,13 +1,13 @@
 package com.webbfontaine.githubanalysis.controllers;
 
 import com.webbfontaine.githubanalysis.pojos.GithubRepo;
+import com.webbfontaine.githubanalysis.pojos.RepoCommit;
+import com.webbfontaine.githubanalysis.pojos.RepoOwner;
+import com.webbfontaine.githubanalysis.pojos.RepoSearch;
 import com.webbfontaine.githubanalysis.services.RepoService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -26,6 +26,21 @@ public class RepoController {
     @GetMapping("/{id}")
     public ResponseEntity<GithubRepo> getRepo(@PathVariable Long id) {
         return repoService.getRepo(id);
+    }
+
+    @GetMapping("/search")
+    public ResponseEntity<RepoSearch> searchRepos(@RequestParam String query, @RequestParam(required = false) String sort, @RequestParam(required = false) String order) {
+        return repoService.searchRepos(query, sort, order);
+    }
+
+    @GetMapping("/users/{owner}/{repo}")
+    public ResponseEntity<List<RepoOwner>> getRepoUsers(@PathVariable("owner") String owner, @PathVariable("repo") String repo) {
+        return repoService.getRepoUsers(owner, repo);
+    }
+
+    @GetMapping("/commits/{owner}/{repo}")
+    public ResponseEntity<List<RepoCommit>> getRepoCommits(@PathVariable("owner") String owner, @PathVariable("repo") String repo) {
+        return repoService.getRepoCommits(owner, repo);
     }
 
 }

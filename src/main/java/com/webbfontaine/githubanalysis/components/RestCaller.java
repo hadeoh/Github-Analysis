@@ -20,7 +20,7 @@ public class RestCaller {
 
     private HttpHeaders getHeader() {
         HttpHeaders headers = new HttpHeaders();
-        headers.add(HttpHeaders.CONTENT_TYPE, "application/json");
+        headers.add(HttpHeaders.CONTENT_TYPE, "application/vnd.github.v3+json");
         return headers;
     }
 
@@ -45,3 +45,5 @@ public class RestCaller {
         return response.getBody();
     }
 }
+
+
